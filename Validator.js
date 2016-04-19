@@ -1,4 +1,7 @@
-/*表单验证规则*/
+/**
+ * 表单验证规则
+ * 按个人需求添加规则
+ */
 var strategys = {
     isNotEmpty: function(value,errorMsg) {
         if($.trim(value) === ''||parseInt(value)===0) {
@@ -30,14 +33,8 @@ var strategys = {
         var value = $.trim(value);
         if(typeof(value) == "undefined"||value=="")
             return errorMsg;
-        var strLength=0;
-        for(var i=0;i<value.length;i++){
-            if(value.charCodeAt(i)>255)
-                strLength+=1;
-            else
-                strLength++;
-        }
-        if(strLength < length) {
+        var strLength = stringLength(value);
+        if(strLength < parseInt(length)) {
             return errorMsg;
         }
     },
@@ -46,17 +43,11 @@ var strategys = {
         var value = $.trim(value);
         if(typeof(value) == "undefined"||value=="")
             return errorMsg;
-        var strLength=0;
-        for(var i=0;i <value.length;i++){
-            if(value.charCodeAt(i)>255)
-                strLength+=1;
-            else
-                strLength++;
-        }
-        if(strLength > length) {
+        var strLength = stringLength(value);
+        if(strLength > parseInt(length)) {
             return errorMsg;
         }
-    }
+    },
 };
 var Validator = function(){
     this.cache = [];  // 保存效验规则
@@ -84,6 +75,18 @@ Validator.prototype.start = function(){
         }
     }
 };
+//字符串长度
+function  stringLength(value){
+    var strLength=0;
+    for(var i=0;i <value.length;i++){
+        if(value.charCodeAt(i)>255){
+            strLength+=1;
+        }else{
+            strLength++;
+        }
+    }
+    return strLength
+}
 //实例化使用
 var validator = new Validator();
 validator.add(DOM,[{strategy: 'isNotEmpty',errorMsg:'errorMsg'});//可添加多个规则
