@@ -89,7 +89,7 @@ function  stringLength(value){
 }
 //实例化使用
 var validator = new Validator();
-validator.add(DOM,[{strategy: 'isNotEmpty',errorMsg:'errorMsg'});//可添加多个规则
+validator.add(DOM,[{strategy: 'isNotEmpty',errorMsg:'errorMsg'}]);//可添加多个规则
 var errorMsg = validator.start(); // 获得效验结果
 if(errorMsg){
     layer.msg(errorMsg,{icon: 7,time: 2000});
